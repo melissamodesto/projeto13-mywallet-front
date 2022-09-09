@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -9,7 +9,7 @@ export default function Login() {
         <Input placeholder="E-mail"></Input>
         <Input placeholder="Senha"></Input>
         <LoginButton>Entrar</LoginButton>
-
+        <LoginSignUp><Link to="">Primeira vez? Cadastre-se</Link></LoginSignUp>
       </FormContainer>
     </>
   );
@@ -39,12 +39,28 @@ const LoginButton = styled.button`
   height: 42px;
   border-radius: 5px;
   color: #fff;
+  &:hover {
+    background-color: #8a2be2;
+  }
 `;
 
 const Title = styled.div`
   text-align: center;
   margin-bottom: 34px;
   color: #fff;
-  font-family: 'Saira Stencil One', sans-serif;
-  font-size: 32px
-  `;
+  font-family: "Saira Stencil One", sans-serif;
+  font-size: 32px;
+`;
+
+const LoginSignUp = styled.div`
+  text-align: center;
+  margin-top: 20px;
+  color: #fff;
+  font-family: "Raleway", sans-serif;
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.02)
+  }
+`;
