@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Signup() {
   return (
     <>
       <FormContainer>
         <Title>MyWallet</Title>
+        <Input placeholder="Nome"></Input>
         <Input placeholder="E-mail"></Input>
         <Input type="password" placeholder="Senha"></Input>
-        <LoginButton><Link to='/Welcome' style={{ color: 'inherit', textDecoration: 'inherit'}}>Entrar</Link></LoginButton>
-        <LoginSignUp><Link to="/Signup" style={{ color: 'inherit', textDecoration: 'inherit'}}>Primeira vez? Cadastre-se</Link></LoginSignUp>
+        <Input type="password" placeholder="Confirme a senha"></Input>
+        <LoginButton>Cadastrar</LoginButton>
+        <LoginSignUp><Link to="/" style={{ color: 'inherit', textDecoration: 'inherit'}}>Já tem uma conta? Entre agora!</Link></LoginSignUp>
       </FormContainer>
     </>
   );
@@ -39,7 +41,7 @@ const LoginButton = styled.button`
   height: 42px;
   border-radius: 5px;
   color: #fff;
-  cursor: pointer;
+  cursor: pointer;  
   &:hover {
     background-color: #8a2be2;
   }
@@ -58,9 +60,9 @@ const LoginSignUp = styled.div`
   margin-top: 20px;
   color: #fff;
   font-family: "Raleway", sans-serif;
+  ;
 
-
-  &:hover {
+    &:hover {
     cursor: pointer;
     transform: scale(1.02)
   }
