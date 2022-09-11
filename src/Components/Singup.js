@@ -1,17 +1,55 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const registerUser = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
-      <FormContainer>
+      <FormContainer onSubmit={registerUser}>
         <Title>MyWallet</Title>
-        <Input placeholder="Nome"></Input>
-        <Input placeholder="E-mail"></Input>
-        <Input type="password" placeholder="Senha"></Input>
-        <Input type="password" placeholder="Confirme a senha"></Input>
-        <LoginButton>Cadastrar</LoginButton>
-        <LoginSignUp><Link to="/" style={{ color: 'inherit', textDecoration: 'inherit'}}>Já tem uma conta? Entre agora!</Link></LoginSignUp>
+        <Input
+          required
+          type={name}
+          placeholder="Nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        ></Input>
+        <Input
+          required
+          type={email}
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></Input>
+        <Input
+          required
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></Input>
+        <Input
+          required
+          type="password"
+          placeholder="Confirme a senha"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+        ></Input>
+        <LoginButton type="submit">Cadastrar</LoginButton>
+        <LoginSignUp>
+          <Link to="/" style={{ color: "inherit", textDecoration: "inherit" }}>
+            Já tem uma conta? Entre agora!
+          </Link>
+        </LoginSignUp>
       </FormContainer>
     </>
   );
@@ -30,6 +68,7 @@ const Input = styled.input`
   border-radius: 5px;
   border: none;
   padding: 10px;
+  font-size: 20px;
   &::placeholder {
     color: black;
   }
@@ -39,9 +78,12 @@ const LoginButton = styled.button`
   background-color: #a328d6;
   border: none;
   height: 42px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Raleway, sans-serif;
   border-radius: 5px;
   color: #fff;
-  cursor: pointer;  
+  cursor: pointer;
   &:hover {
     background-color: #8a2be2;
   }
@@ -60,10 +102,8 @@ const LoginSignUp = styled.div`
   margin-top: 20px;
   color: #fff;
   font-family: "Raleway", sans-serif;
-  ;
-
-    &:hover {
+  &:hover {
     cursor: pointer;
-    transform: scale(1.02)
+    transform: scale(1.02);
   }
 `;

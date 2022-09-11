@@ -1,12 +1,33 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function NewEntry() {
+  const [value, setValue] = useState("");
+  const [description, setDescription] = useState("");
+
+  const withdrawMoney = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
-      <FormContainer>
-        <Title>Nova saída</Title>
-        <Input placeholder="Valor"></Input>
-        <Input placeholder="Descrição"></Input>        <SaveButton>Salvar entrada</SaveButton>
+      <Title>Nova saída</Title>
+      <FormContainer onSubmit={withdrawMoney}>
+        <Input
+          required
+          type="text"
+          placeholder="Valor"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        ></Input>
+        <Input
+          required
+          type="text"
+          placeholder="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></Input>{" "}
+        <SaveButton type="submit">Salvar entrada</SaveButton>
       </FormContainer>
     </>
   );

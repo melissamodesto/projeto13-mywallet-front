@@ -1,15 +1,49 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const loginToApp = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
-      <FormContainer>
+      <FormContainer onSubmit={loginToApp}>
         <Title>MyWallet</Title>
-        <Input placeholder="E-mail"></Input>
-        <Input type="password" placeholder="Senha"></Input>
-        <LoginButton><Link to='/Welcome' style={{ color: 'inherit', textDecoration: 'inherit'}}>Entrar</Link></LoginButton>
-        <LoginSignUp><Link to="/Signup" style={{ color: 'inherit', textDecoration: 'inherit'}}>Primeira vez? Cadastre-se</Link></LoginSignUp>
+        <Input
+          required
+          type="email"
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></Input>
+        <Input
+          required
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></Input>
+        <LoginButton type="submit">
+          <Link
+            to="/Welcome"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          >
+            Entrar
+          </Link>
+        </LoginButton>
+        <LoginSignUp>
+          <Link
+            to="/Signup"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          >
+            Primeira vez? Cadastre-se
+          </Link>
+        </LoginSignUp>
       </FormContainer>
     </>
   );
@@ -28,6 +62,7 @@ const Input = styled.input`
   border-radius: 5px;
   border: none;
   padding: 10px;
+  font-size: 20px;
   &::placeholder {
     color: black;
   }
@@ -37,6 +72,9 @@ const LoginButton = styled.button`
   background-color: #a328d6;
   border: none;
   height: 42px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Raleway, sans-serif;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
@@ -59,9 +97,8 @@ const LoginSignUp = styled.div`
   color: #fff;
   font-family: "Raleway", sans-serif;
 
-
   &:hover {
     cursor: pointer;
-    transform: scale(1.02)
+    transform: scale(1.02);
   }
 `;
