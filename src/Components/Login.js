@@ -1,75 +1,25 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
-import Token from "./Context/TokenContext";
-
-const API_URL = "http://localhost:5000/sign-in";
+import Form from "./InitialScreen/Form";
 
 export default function Login() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { setToken } = useContext(Token);
+  const token = localStorage.getItem("token");
+  const name = localStorage.getItem("name");
 
-  function loginToApp(event) {
-    event.preventDefault();
-    setLoading(true);
-    axios
-      .post(API_URL, { email, password })
-      .then((res) => {
-        setLoading(false);
-        setToken(res.data);
-        localStorage.setItem("name", res.data.name);
-        localStorage.setItem("token", res.data.token);
-        navigate("/welcome");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Credenciais inválidas");
-      });
-  }
-
+  useEffect(() => {
+    if (token && name) {
+      return navigate("/welcome");
+    }
+  }, []);
   return (
     <>
       <Container>
         <Title>MyWallet</Title>
-
-        <Form onSubmit={loginToApp}>
-          <Input
-            required
-            type="email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Input>
-          <Input
-            required
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Input>
-          {!loading ? (
-            <LoginButton type="submit">Entrar</LoginButton>
-          ) : (
-            <LoginButton>
-              <ThreeDots color="#FFFFFF" width="35" heigth="35" />
-            </LoginButton>
-          )}
-        </Form>
-
-        <LoginSignUp>
-          <Link
-            to="/sign-up"
-            style={{ color: "inherit", textDecoration: "inherit" }}
-          >
-            Primeira vez? Cadastre-se
-          </Link>
-        </LoginSignUp>
+        <Form />
       </Container>
     </>
   );
@@ -80,11 +30,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: calc(50vh - 100px) auto;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
 `;
 
 const Input = styled.input`

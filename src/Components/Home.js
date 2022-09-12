@@ -1,21 +1,14 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const loginToApp = (event) => {
-    event.preventDefault();
-  };
 
   return (
     <Container>
       <Title>MyWallet</Title>
       <LoginButton>
         <Link
-          to="/Sign-in"
+          to="/sign-in"
           style={{ color: "inherit", textDecoration: "inherit" }}
         >
           Faça login
@@ -36,7 +29,7 @@ const Container = styled.div`
 const LoginButton = styled.button`
   background-color: #a328d6;
   border: none;
-  width:15%;
+  width: 25%;
   height: 42px;
   font-size: 20px;
   font-weight: 700;

@@ -5,16 +5,11 @@ import InitialScreen from "./InitialScreen/InitialScreen";
 import Login from "./Login";
 import Signup from "./Singup";
 import NewEntry from "./NewEntry";
-import NewExit from "./NewExit";
 import GlobalStyle from "./style/GlobalStyle";
-import { useState } from "react";
-import Token from "./Context/TokenContext";
 
 export default function App() {
-  const [token, setToken] = useState([]);
-
   return (
-    <Token.Provider value={{ token, setToken }}>
+    <>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
@@ -22,10 +17,9 @@ export default function App() {
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/welcome" element={<InitialScreen />} />
-          <Route path="/new-entry" element={<NewEntry />} />
-          <Route path="/new-exit" element={<NewExit />} />
+          <Route path="/new-entry/:type" element={<NewEntry />} />
         </Routes>
       </BrowserRouter>
-    </Token.Provider>
+    </>
   );
 }

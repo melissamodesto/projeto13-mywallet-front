@@ -2,23 +2,27 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BsPlusCircle } from "react-icons/bs";
 import { AiOutlineMinusCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  function handleNewEntry(type) {
+    navigate("/new-entry/" + type);
+  }
+
   return (
     <>
       <Buttons>
-        <Link to="/new-entry" style={{ textDecoration: "inherit" }}>
-          <EntryAndExitButton>
-            <BsPlusCircle />
-            Nova entrada
-          </EntryAndExitButton>
-        </Link>
-        <Link to="/new-exit" style={{ textDecoration: "inherit" }}>
-          <EntryAndExitButton>
-            <AiOutlineMinusCircle />
-            Nova saída
-          </EntryAndExitButton>
-        </Link>
+        <EntryAndExitButton onClick={() => handleNewEntry("deposit")}>
+          <BsPlusCircle />
+          Nova entrada
+        </EntryAndExitButton>
+
+        <EntryAndExitButton onClick={() => handleNewEntry("withdraw")}>
+          <AiOutlineMinusCircle />
+          Nova saída
+        </EntryAndExitButton>
       </Buttons>
     </>
   );
@@ -28,11 +32,12 @@ const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
+  margin: 0 20px;
 `;
 
 const EntryAndExitButton = styled.button`
   height: 114px;
-  width: 95%;
+  width: 45%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

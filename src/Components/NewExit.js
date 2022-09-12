@@ -23,7 +23,7 @@ export default function NewExit() {
       description,
     };
     axios
-      .post("http://localhost:5000/withdraw", body, config)
+      .post("http://localhost:5000/new-exit", body, config)
       .then((res) => {
         console.log(res.data);
         navigate("/welcome");
