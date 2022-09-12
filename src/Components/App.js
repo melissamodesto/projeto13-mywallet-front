@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import InitialScreen from "./InitialScreen";
+import Home from "./Home";
+import InitialScreen from "./InitialScreen/InitialScreen";
 import Login from "./Login";
 import Signup from './Singup';
 import NewEntry from './NewEntry';
@@ -13,11 +14,12 @@ export default function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route path="/Welcome" element={<InitialScreen />} />
-          <Route path="/NewEntry" element={<NewEntry />} />
-          <Route path="/NewExit" element={<NewExit />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/welcome" element={<InitialScreen />} />
+          <Route path="/new-entry" element={<NewEntry />} />
+          <Route path="/new-exit" element={<NewExit />} />
         </Routes>
       </BrowserRouter>
     </>

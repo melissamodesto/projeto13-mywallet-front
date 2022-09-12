@@ -2,26 +2,18 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BsPlusCircle } from "react-icons/bs";
 import { AiOutlineMinusCircle } from "react-icons/ai";
-import { RiLogoutBoxRLine } from "react-icons/ri";
 
-export default function InitialScreen({ name }) {
+export default function Footer() {
   return (
     <>
-      <Title>
-        Olá, {name}
-        <RiLogoutBoxRLine />
-      </Title>
-      <Container>
-        <Text>Não há registros de entrada ou saída</Text>
-      </Container>
       <Buttons>
-        <Link to="/NewEntry" style={{textDecoration: "inherit"}}>
+        <Link to="/new-entry" style={{ textDecoration: "inherit" }}>
           <EntryAndExitButton>
             <BsPlusCircle />
             Nova entrada
           </EntryAndExitButton>
         </Link>
-        <Link to="/NewExit" style={{textDecoration: "inherit"}}>
+        <Link to="/new-exit" style={{ textDecoration: "inherit" }}>
           <EntryAndExitButton>
             <AiOutlineMinusCircle />
             Nova saída
@@ -32,31 +24,6 @@ export default function InitialScreen({ name }) {
   );
 }
 
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-  font-size: 26px;
-  font-family: Raleway, sans-serif;
-  margin: 10px 0 10px 0;
-`;
-
-const Container = styled.div`
-  height: 446px;
-  width: 100%;
-  margin: auto;
-  border-radius: 5px;
-  background-color: #fff;
-`;
-const Text = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #868686;
-  font-size: 16px;
-  font-family: Raleway, sans-serif;
-`;
 const Buttons = styled.div`
   display: flex;
   justify-content: space-between;

@@ -1,13 +1,29 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000"
 
 export default function Login() {
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginToApp = (event) => {
     event.preventDefault();
+    axios
+      .post(`${API_URL}/sign-in`, { email, password })
+      .then((res) => {
+        localStorage.setItem("name", res.data.name);
+        localStorage.setItem("token", res.data.token);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -30,7 +46,7 @@ export default function Login() {
         ></Input>
         <LoginButton type="submit">
           <Link
-            to="/Welcome"
+            to="/welcome"
             style={{ color: "inherit", textDecoration: "inherit" }}
           >
             Entrar
@@ -38,7 +54,7 @@ export default function Login() {
         </LoginButton>
         <LoginSignUp>
           <Link
-            to="/Signup"
+            to="/sign-up"
             style={{ color: "inherit", textDecoration: "inherit" }}
           >
             Primeira vez? Cadastre-se

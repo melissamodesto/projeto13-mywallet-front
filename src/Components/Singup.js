@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Signup() {
+
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +14,20 @@ export default function Signup() {
 
   const registerUser = (event) => {
     event.preventDefault();
+    axios
+      .post("http://localhost:5000/sign-up", {
+        name,
+        email,
+        password,
+        passwordConfirmation,
+      })
+      .then((res) => {
+        console.log(res);
+        navigate("/sign-in");
+      })
+      .catch((err) => {
+        console.log(err.res.status);
+      });
   };
 
   return (
@@ -46,7 +64,7 @@ export default function Signup() {
         ></Input>
         <LoginButton type="submit">Cadastrar</LoginButton>
         <LoginSignUp>
-          <Link to="/" style={{ color: "inherit", textDecoration: "inherit" }}>
+          <Link to="/sign-in" style={{ color: "inherit", textDecoration: "inherit" }}>
             Já tem uma conta? Entre agora!
           </Link>
         </LoginSignUp>
