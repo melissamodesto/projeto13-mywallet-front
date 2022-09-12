@@ -5,7 +5,7 @@ import EntryAndExitRecords from "./EntryAndExitRecords";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "http://localhost:5000/records";
 
 export default function InitialScreen({}) {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function InitialScreen({}) {
     }
 
     axios
-      .get(`${API_URL}/records`, {
+      .get(API_URL, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

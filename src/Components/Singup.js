@@ -2,82 +2,110 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
+
+const API_URL = "http://localhost:5000/sign-up";
 
 export default function Signup() {
-
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [passwordConfirmation, setPasswordConfirmation] = useState();
+  const [loading, setLoading] = useState(false);
 
-  const registerUser = (event) => {
-    event.preventDefault();
+  function registerUser(e) {
+    e.preventDefault();
+
+    const newUser = {
+      name,
+      email,
+      password,
+    };
+
     axios
-      .post("http://localhost:5000/sign-up", {
-        name,
-        email,
-        password,
-        passwordConfirmation,
+      .post(API_URL, {
+        newUser,
       })
       .then((res) => {
+        alert("Usuário cadastrado com sucesso!");
         console.log(res);
         navigate("/sign-in");
       })
       .catch((err) => {
         console.log(err.res.status);
+        console.log(err.res.data);
+        alert("Erro ao cadastrar usuário");
       });
-  };
+
+    console.log(newUser);
+  }
 
   return (
     <>
-      <FormContainer onSubmit={registerUser}>
+      <Container onSubmit={registerUser}>
         <Title>MyWallet</Title>
-        <Input
-          required
-          type={name}
-          placeholder="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        ></Input>
-        <Input
-          required
-          type={email}
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        ></Input>
-        <Input
-          required
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        ></Input>
-        <Input
-          required
-          type="password"
-          placeholder="Confirme a senha"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        ></Input>
-        <LoginButton type="submit">Cadastrar</LoginButton>
+        <Form>
+          <Input
+            required
+            type="text"
+            placeholder="Nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></Input>
+          <Input
+            required
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></Input>
+          <Input
+            required
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          ></Input>
+          <Input
+            required
+            type="password"
+            placeholder="Confirme a senha"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          ></Input>
+          {!loading ? (
+            <LoginButton type="submit">Cadastrar</LoginButton>
+          ) : (
+            <LoginButton>
+              <ThreeDots color="#FFFFFF" width="35" heigth="35" />
+            </LoginButton>
+          )}
+        </Form>
         <LoginSignUp>
-          <Link to="/sign-in" style={{ color: "inherit", textDecoration: "inherit" }}>
+          <Link
+            to="/sign-in"
+            style={{ color: "inherit", textDecoration: "inherit" }}
+          >
             Já tem uma conta? Entre agora!
           </Link>
         </LoginSignUp>
-      </FormContainer>
+      </Container>
     </>
   );
 }
 
-const FormContainer = styled.div`
+const Container = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
   margin: calc(50vh - 100px) auto;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Input = styled.input`

@@ -1,13 +1,38 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Token from "./Context/TokenContext";
 
-export default function NewEntry() {
+export default function NewExit() {
   const [value, setValue] = useState("");
   const [description, setDescription] = useState("");
 
-  const withdrawMoney = (event) => {
+  const { token } = useContext(Token);
+  const navigate = useNavigate();
+
+  function withdrawMoney(event) {
     event.preventDefault();
-  };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const body = {
+      value,
+      description,
+    };
+    axios
+      .post("http://localhost:5000/withdraw", body, config)
+      .then((res) => {
+        console.log(res.data);
+        navigate("/welcome");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Não foi possível salvar a saída");
+      });
+  }
 
   return (
     <>

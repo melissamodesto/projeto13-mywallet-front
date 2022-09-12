@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export default function EntryAndExitRecords({ records }) {
+export default function EntryAndExitRecords(props) {
+  const { records } = props;
+
   function calculateBalance() {
     let balance = 0;
     records.forEach((record) => {
@@ -10,6 +12,7 @@ export default function EntryAndExitRecords({ records }) {
         balance -= record.value;
       }
     });
+  
     return balance;
   }
 
@@ -34,6 +37,12 @@ export default function EntryAndExitRecords({ records }) {
         )}
         ;
       </ul>
+      <Balance>
+        <span>Saldo</span>
+        if( {calculateBalance()} {">"} 0 ){" "}
+        {<Deposit>{calculateBalance()}</Deposit>} else
+        {<Withdraw>{calculateBalance()}</Withdraw>}
+      </Balance>
     </>
   );
 }
@@ -65,5 +74,13 @@ const Deposit = styled.div`
 const Withdraw = styled.div`
   color: #c70000;
   font-size: 16px;
+  font-family: Raleway, sans-serif;
+`;
+
+const Balance = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 10px 0;
+  font-size: 20px;
   font-family: Raleway, sans-serif;
 `;

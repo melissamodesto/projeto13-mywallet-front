@@ -1,13 +1,43 @@
 import styled from "styled-components";
-import { useState } from "react";
+import Token from "./Context/TokenContext";
+import { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { Bars } from "react-loader-spinner";
 
 export default function NewEntry() {
   const [value, setValue] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const depositMoney = (event) => {
+  const { token } = useContext(Token);
+  const navigate = useNavigate();
+
+  function depositMoney(event) {
     event.preventDefault();
-  };
+    setLoading(true);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    };
+    const body = {
+      value,
+      description,
+    };
+    axios
+      .post("http://localhost:5000/deposit", body, config)
+      .then((res) => {
+        setLoading(false);
+        console.log(res.data);
+        navigate("/welcome");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Não foi possível salvar a entrada");
+      });
+  }
+
   return (
     <>
       <Title>Nova entrada</Title>
@@ -22,11 +52,22 @@ export default function NewEntry() {
         <Input
           required
           type="text"
-          placeholder="Valor"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        ></Input>{" "}
-        <SaveButton type="submit">Salvar entrada</SaveButton>
+          placeholder="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></Input>
+        {!loading ? (
+          <SaveButton type="submit">Salvar entrada</SaveButton>
+        ) : (
+          <SaveButton>
+            <Bars
+              color="#FFFFFF"
+              height={45}
+              width={45}
+              ariaLabel="loading-indicator"
+            />
+          </SaveButton>
+        )}
       </FormContainer>
     </>
   );
