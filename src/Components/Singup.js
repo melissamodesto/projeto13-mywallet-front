@@ -8,17 +8,17 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const name = localStorage.getItem("name");
+  const name = localStorage.getItem("user");
 
   useEffect(() => {
     if (token && name) {
-      return navigate("/welcome");
+      return navigate("/sign-in");
     }
   }, []);
 
   return (
     <>
-      <Container /* onSubmit={registerUser} */>
+      <Container>
         <Title>MyWallet</Title>
         <Form />
       </Container>

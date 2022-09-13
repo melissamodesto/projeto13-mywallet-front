@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useLocation, Link } from "react-router-dom";
 
-export default function Header({ name }) {
+export default function Header(props) {
   const location = useLocation();
   const path = location.pathname;
 
@@ -30,7 +30,7 @@ export default function Header({ name }) {
     return (
       <>
         <Title>
-          Olá, {name}
+          Olá, {props.name}
           <Link
             to="/sign-in"
             style={{ color: "inherit", textDecoration: "inherit" }}

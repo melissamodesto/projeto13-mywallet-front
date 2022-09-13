@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ThreeDots } from "react-loader-spinner";
 import Form from "./InitialScreen/Form";
 
 export default function Login() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const name = localStorage.getItem("name");
+  const name = localStorage.getItem("user");
 
   useEffect(() => {
     if (token && name) {
+      console.log(token, name);
       return navigate("/welcome");
     }
   }, []);

@@ -10,11 +10,10 @@ import styled from "styled-components";
 export default function Form(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { entryType } = useParams();
+  const { entry } = useParams();
 
   const path = location.pathname;
   const token = localStorage.getItem("token");
-  const userName = localStorage.getItem("name");
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -47,7 +46,7 @@ export default function Form(props) {
         const lowerCaseEmailSignIn = email.toLowerCase();
 
         axios
-          
+
           .post("http://localhost:5000/sign-in", {
             email: lowerCaseEmailSignIn,
             password,
@@ -56,6 +55,8 @@ export default function Form(props) {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", res.data.name);
             navigate("/welcome");
+            console.log(res.data.token);
+            console.log(res.data.name);
           })
           .catch((error) => {
             setRequestError(error);
@@ -76,6 +77,7 @@ export default function Form(props) {
             password,
           })
           .then((res) => {
+            setName(res.data.name);
             console.log(res.data.name);
             navigate("/sign-in");
           })
@@ -87,7 +89,7 @@ export default function Form(props) {
       case "/new-entry/deposit":
       case "/new-entry/withdraw":
         e.preventDefault();
-        const valueAsNumber = Number(value);
+        const valueAsNumber = Number(value).toFixed(2);
 
         axios
           .post(
@@ -95,7 +97,7 @@ export default function Form(props) {
             {
               value: valueAsNumber,
               description,
-              type: entryType,
+              type: entry,
             },
             {
               headers: {
@@ -107,7 +109,7 @@ export default function Form(props) {
             navigate("/welcome");
           })
           .catch((error) => {
-            console.log(error);
+            console.log(error.message);
             setRequestError(error);
           });
         break;
@@ -147,8 +149,9 @@ export default function Form(props) {
       e.target.value.length > 0
         ? setTrackingPassword(true)
         : setTrackingPassword(false);
-      if (e.target.value === password) setMatchingPassword(true);
-      else setMatchingPassword(false);
+      if (e.target.value === password) {
+        setMatchingPassword(true);
+      } else setMatchingPassword(false);
     }
   }
 
