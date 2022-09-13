@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Typing from "react-typist";
 
 export default function Login() {
-
   return (
     <Container>
-      <Title>MyWallet</Title>
+      <Typing >
+        <Title>MyWallet</Title>
+        <Typing.Delay ms={1500} />
+      </Typing>
       <LoginButton>
         <Link
           to="/sign-in"
@@ -19,11 +22,10 @@ export default function Login() {
 }
 
 const Container = styled.div`
-    margin: calc(50vh - 100px) auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+  margin: calc(50vh - 100px) auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const LoginButton = styled.button`

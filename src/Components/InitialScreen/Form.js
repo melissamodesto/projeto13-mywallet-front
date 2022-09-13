@@ -14,6 +14,7 @@ export default function Form(props) {
 
   const path = location.pathname;
   const token = localStorage.getItem("token");
+  const userName = localStorage.getItem("name");
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -46,6 +47,7 @@ export default function Form(props) {
         const lowerCaseEmailSignIn = email.toLowerCase();
 
         axios
+          
           .post("http://localhost:5000/sign-in", {
             email: lowerCaseEmailSignIn,
             password,
@@ -74,7 +76,7 @@ export default function Form(props) {
             password,
           })
           .then((res) => {
-            console.log(res);
+            console.log(res.data.name);
             navigate("/sign-in");
           })
           .catch((error) => {
@@ -106,7 +108,6 @@ export default function Form(props) {
           })
           .catch((error) => {
             console.log(error);
-
             setRequestError(error);
           });
         break;
@@ -121,7 +122,7 @@ export default function Form(props) {
             }
           )
           .then((res) => {
-            navigate("/");
+            navigate("/welcome");
           })
           .catch((error) => {
             if (error.res.data?.includes("Data must be different to update")) {
